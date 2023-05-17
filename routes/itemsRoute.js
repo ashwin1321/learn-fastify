@@ -1,4 +1,4 @@
-const items = require('../items')
+const { getItems, getItem } = require('../controllers/itemController')
 
 // Item Schema 
 const Item = {
@@ -20,9 +20,7 @@ const getItemsOpts = {
         }
     },
     // we can also define the handler function or controller in the getItemsOpts object, but we will define it separately below.
-    handler: async (request, reply) => {
-        reply.send(items)
-    }
+    handler: getItems
 }
 //the getItemsOpts object is defining the expected response structure for the /items endpoint, where the response should be an array of objects, with each object having an id and a name property, both of which should be strings.
 
@@ -33,11 +31,7 @@ const getItemOpts = {
             200: Item
         }
     },
-    handler: async (request, reply) => {
-        const { id } = request.params
-        const item = items.find(item => item.id === id)
-        reply.send(item)
-    }
+    handler: getItem
 }
 
 // the getItemOpts object is defining the expected response structure for the /items/:id endpoint, where the response should be an object with an id and a name property, both of which should be strings.
