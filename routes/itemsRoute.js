@@ -1,4 +1,4 @@
-const { getItems, getItem, postItem } = require('../controllers/itemController')
+const { getItems, getItem, postItem, deleteItem } = require('../controllers/itemController')
 
 // Item Schema 
 const Item = {
@@ -41,7 +41,23 @@ const postITemOpts = {
     handler: postItem
 }
 
+// options for delete item
+const deleteItemOpts = {
+    schema: {
+        response: {
+            200: {
+                type: 'object',
+                properties: {
+                    message: { type: 'string' }
+                }
+            }
+        }
+    },
+    handler: deleteItem
+}
 
+
+// get the particular item
 const getItemOpts = {
     schema: {
         response: {
@@ -65,6 +81,9 @@ function itemRoutes(fastify, options, done) {
 
     // Add Items
     fastify.post('/add/item', postITemOpts)
+
+    // Delete Items
+    fastify.delete("/items/:id", deleteItemOpts)
 
 
     done()  // we call the done() callback to signal that we are done with the plugin registration.

@@ -22,8 +22,15 @@ const postItem = async (request, reply) => {
     reply.code(201).send(item)
 }
 
+const deleteItem = async (request, reply) => {
+    const { id } = request.params
+    items = items.filter(item => item.id !== id)
+    reply.send({ message: `Item ${id} has been removed` })
+}
+
 module.exports = {
     getItems,
     getItem,
-    postItem
+    postItem,
+    deleteItem
 }
