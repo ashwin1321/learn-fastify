@@ -28,9 +28,18 @@ const deleteItem = async (request, reply) => {
     reply.send({ message: `Item ${id} has been removed` })
 }
 
+const updateItem = async (request, reply) => {
+    const { id } = request.params
+    const { name } = request.body
+    const item = items.find(item => item.id === id)
+    item.name = name
+    reply.send(item)
+}
+
 module.exports = {
     getItems,
     getItem,
     postItem,
-    deleteItem
+    deleteItem,
+    updateItem
 }
