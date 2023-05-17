@@ -27,6 +27,13 @@ const getItemsOpts = {
 // options for add item
 const postITemOpts = {
     schema: {
+        body: {
+            type: 'object',
+            required: ['name'],
+            properties: {
+                name: { type: 'string' }
+            }
+        },
         response: {
             201: Item
         },
