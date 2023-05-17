@@ -1,10 +1,10 @@
-const { getItems, getItem } = require('../controllers/itemController')
+const { getItems, getItem, postItem } = require('../controllers/itemController')
 
 // Item Schema 
 const Item = {
     type: 'object',
     properties: {
-        id: { type: 'integer' },
+        id: { type: 'string' },
         name: { type: 'string' }
     }
 }
@@ -23,6 +23,16 @@ const getItemsOpts = {
     handler: getItems
 }
 //the getItemsOpts object is defining the expected response structure for the /items endpoint, where the response should be an array of objects, with each object having an id and a name property, both of which should be strings.
+
+// options for add item
+const postITemOpts = {
+    schema: {
+        response: {
+            201: Item
+        },
+    },
+    handler: postItem
+}
 
 
 const getItemOpts = {
@@ -45,6 +55,10 @@ function itemRoutes(fastify, options, done) {
 
     // get single item 
     fastify.get('/items/:id', getItemOpts)
+
+    // Add Items
+    fastify.post('/add/item', postITemOpts)
+
 
     done()  // we call the done() callback to signal that we are done with the plugin registration.
 }
